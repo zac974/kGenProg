@@ -65,7 +65,7 @@ public class KGenProgMain {
     stopwatch.start();
 
     while (true) {
-
+      log.info("--------------------------------------------------------------------------------");
       log.info("in the era of the " + variantStore.getGenerationNumber()
           .toString() + " generation (" + stopwatch.toString() + ")");
 
