@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jp.kusumotolab.kgenprog.fl.FaultLocalization;
 import jp.kusumotolab.kgenprog.ga.Crossover;
+import jp.kusumotolab.kgenprog.ga.EvolutionLogger;
 import jp.kusumotolab.kgenprog.ga.Mutation;
 import jp.kusumotolab.kgenprog.ga.SourceCodeGeneration;
 import jp.kusumotolab.kgenprog.ga.SourceCodeValidation;
@@ -92,6 +93,10 @@ public class KGenProgMain {
 
       // 次世代に向けての準備
       variantStore.changeGeneration();
+
+      // 進化の過程を確認する簡易的なlogger
+      final EvolutionLogger evolutionLogger = new EvolutionLogger();
+      evolutionLogger.log(variantStore.getCurrentVariants());
     }
 
     // 生成されたバリアントのパッチ出力
