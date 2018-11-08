@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jp.kusumotolab.kgenprog.fl.Suspiciousness;
+import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
 import jp.kusumotolab.kgenprog.project.NoneOperation;
 import jp.kusumotolab.kgenprog.project.Operation;
 import jp.kusumotolab.kgenprog.project.jdt.DeleteOperation;
@@ -50,7 +51,7 @@ public class RandomMutation extends Mutation {
           new Roulette<>(suspiciousnesses, weightFunction, random);
 
       final Suspiciousness suspiciousness = roulette.exec();
-      final Base base = makeBase(suspiciousness);
+      final Base base = makeBase(suspiciousness, fqn);
       final Gene gene = makeGene(variant.getGene(), base);
       final HistoricalElement element = new MutationHistoricalElement(variant, base);
       generatedVariants.add(variantStore.createVariant(gene, element));
@@ -60,28 +61,28 @@ public class RandomMutation extends Mutation {
     return generatedVariants;
   }
 
-  private Base makeBase(final Suspiciousness suspiciousness) {
+  private Base makeBase(final Suspiciousness suspiciousness, final FullyQualifiedName fqn) {
     log.debug("enter makeBase(Suspiciousness)");
-    return new Base(suspiciousness.getLocation(), makeOperationAtRandom());
+    return new Base(suspiciousness.getLocation(), makeOperationAtRandom(fqn));
   }
 
-  private Operation makeOperationAtRandom() {
+  private Operation makeOperationAtRandom(final FullyQualifiedName fqn) {
     log.debug("enter makeOperationAtRandom()");
     final int randomNumber = random.nextInt(3);
     switch (randomNumber) {
       case 0:
         return new DeleteOperation();
       case 1:
-        return new InsertOperation(chooseNodeAtRandom());
+        return new InsertOperation(chooseNodeAtRandom(fqn));
       case 2:
-        return new ReplaceOperation(chooseNodeAtRandom());
+        return new ReplaceOperation(chooseNodeAtRandom(fqn));
     }
     return new NoneOperation();
   }
 
-  private ASTNode chooseNodeAtRandom() {
+  private ASTNode chooseNodeAtRandom(final FullyQualifiedName fqn) {
     log.debug("enter chooseNodeAtRandom()");
-    return candidateSelection.exec();
+    return candidateSelection.exec(fqn);
   }
 
   private Gene makeGene(final Gene parent, final Base base) {

@@ -2,6 +2,7 @@ package jp.kusumotolab.kgenprog.ga;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import org.eclipse.jdt.core.dom.Statement;
 import jp.kusumotolab.kgenprog.project.GeneratedAST;
 import jp.kusumotolab.kgenprog.project.ProductSourcePath;
@@ -23,7 +24,10 @@ public class SimpleStatementSelection implements CandidateSelection {
 
   @Override
   public Statement exec() {
-    final List<Statement> statements = visitor.getStatements();
+    final List<Statement> statements = visitor.getStatements()
+        .stream()
+        .map(ReuseCandidate::getValue)
+        .collect(Collectors.toList());
     final int index = random.nextInt(statements.size());
     return statements.get(index);
   }
