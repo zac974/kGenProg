@@ -49,9 +49,11 @@ public class EvolutionLogger {
       }
     }
 
-    log.info("max fitness({}): {}", maxCounter, max);
-    log.info("min fitness({}): {}", minCounter, min);
-    writeToLogger(maxVariant);
+    if (maxVariant != null) {
+      log.info("max fitness({}): {}", maxCounter, max);
+      log.info("min fitness({}): {}", minCounter, min);
+      writeToLogger(maxVariant);
+    }
     //writeToLogger(minVariant);
   }
 
