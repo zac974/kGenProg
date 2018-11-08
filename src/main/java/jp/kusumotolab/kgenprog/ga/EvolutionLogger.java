@@ -50,9 +50,9 @@ public class EvolutionLogger {
     }
 
     log.info("max fitness({}): {}", maxCounter, max);
-    writeToLogger(maxVariant);
     log.info("min fitness({}): {}", minCounter, min);
-    writeToLogger(minVariant);
+    writeToLogger(maxVariant);
+    //writeToLogger(minVariant);
   }
 
   private boolean isEqual(final double a, final double b) {
