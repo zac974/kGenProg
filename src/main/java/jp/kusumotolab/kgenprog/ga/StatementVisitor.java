@@ -44,6 +44,10 @@ public class StatementVisitor extends ASTVisitor {
   }
 
   private void addStatement(final Statement statement) {
+    if (generatedAST == null) {
+      statements.add(new ReuseCandidate<>(statement, null, null));
+      return;
+    }
     final FullyQualifiedName fqn = generatedAST.getPrimaryClassName();
     final String packageName = fqn.getPackageName();
     statements.add(new ReuseCandidate<>(statement, packageName, fqn));

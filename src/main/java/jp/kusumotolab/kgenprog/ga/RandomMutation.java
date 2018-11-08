@@ -8,7 +8,9 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jp.kusumotolab.kgenprog.fl.Suspiciousness;
+import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
+import jp.kusumotolab.kgenprog.project.GeneratedAST;
 import jp.kusumotolab.kgenprog.project.NoneOperation;
 import jp.kusumotolab.kgenprog.project.Operation;
 import jp.kusumotolab.kgenprog.project.jdt.DeleteOperation;
@@ -51,6 +53,9 @@ public class RandomMutation extends Mutation {
           new Roulette<>(suspiciousnesses, weightFunction, random);
 
       final Suspiciousness suspiciousness = roulette.exec();
+      final ASTLocation location = suspiciousness.getLocation();
+      final GeneratedAST<?> generatedAST = location.getGeneratedAST();
+      final FullyQualifiedName fqn = generatedAST.getPrimaryClassName();
       final Base base = makeBase(suspiciousness, fqn);
       final Gene gene = makeGene(variant.getGene(), base);
       final HistoricalElement element = new MutationHistoricalElement(variant, base);
