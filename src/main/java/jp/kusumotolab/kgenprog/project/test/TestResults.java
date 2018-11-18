@@ -287,5 +287,9 @@ public class TestResults implements Serializable {
       Function<ProductSourcePath, Set<FullyQualifiedName>> sourcePathToFQN) {
     this.sourcePathToFQN = sourcePathToFQN;
   }
+  
+  public BuildResults getBuildResults() {
+    return buildResults;
+  }
 
 }
