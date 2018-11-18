@@ -28,7 +28,7 @@ public class TestResults implements Serializable {
   // 直接valueへのアクセスを回避するために可視性を下げておく
   private final Map<FullyQualifiedName, TestResult> value;
 
-  TestResults() {
+  public TestResults() {
     this.value = new HashMap<>();
   }
 
