@@ -46,7 +46,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは4個のはず
@@ -82,7 +82,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは10個のはず
@@ -128,7 +128,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストはないはず
@@ -144,7 +144,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 内部クラスを持つBazのASTと，Baz#OuterClassのL66のASTLocationを取り出す
@@ -198,7 +198,7 @@ public class TestExecutorTest {
     final Configuration config = new Configuration.Builder(targetProject) //
         .setTestTimeLimitSeconds(1) // タイムアウト時間を短めに設定（CI高速化のため）
         .build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 無限ループが発生し，タイムアウトで打ち切られてEmptyになるはず
@@ -216,7 +216,7 @@ public class TestExecutorTest {
     final Configuration config = new Configuration.Builder(targetProject) //
         .addExecutionTest("example.FooTest")
         .build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは10個から4個に減ったはず
@@ -251,7 +251,7 @@ public class TestExecutorTest {
     final Configuration config = new Configuration.Builder(targetProject) //
         .addExecutionTest("example.FooTestXXXXXXXX") // no such method
         .build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストはないはず
@@ -267,7 +267,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは4個のはず
@@ -289,7 +289,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは4個のはず
@@ -316,7 +316,7 @@ public class TestExecutorTest {
     final Configuration config = new Configuration.Builder(targetProject) //
         .addExecutionTest(FOO_TEST.value) // FooTestのみ実行する（非依存テストは実行しない）
         .build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result = executor.exec(source);
 
     // 実行されたテストは4個のはず（BarTest#test01は実行されない）
@@ -338,7 +338,7 @@ public class TestExecutorTest {
     final GeneratedSourceCode source = TestUtil.createGeneratedSourceCode(targetProject);
 
     final Configuration config = new Configuration.Builder(targetProject).build();
-    final TestExecutor executor = new TestExecutor(config);
+    final TestExecutor executor = new LocalTestExecutor(config);
     final TestResults result1 = executor.exec(source);
 
     // 実行されたテストは4個のはず

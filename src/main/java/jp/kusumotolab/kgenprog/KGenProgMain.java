@@ -14,6 +14,7 @@ import jp.kusumotolab.kgenprog.ga.VariantStore;
 import jp.kusumotolab.kgenprog.output.PatchGenerator;
 import jp.kusumotolab.kgenprog.output.PatchStore;
 import jp.kusumotolab.kgenprog.project.jdt.JDTASTConstruction;
+import jp.kusumotolab.kgenprog.project.test.LocalTestExecutor;
 import jp.kusumotolab.kgenprog.project.test.TestExecutor;
 
 public class KGenProgMain {
@@ -45,7 +46,7 @@ public class KGenProgMain {
     this.sourceCodeGeneration = sourceCodeGeneration;
     this.sourceCodeValidation = sourceCodeValidation;
     this.variantSelection = variantSelection;
-    this.testExecutor = new TestExecutor(config);
+    this.testExecutor = new LocalTestExecutor(config);
     this.astConstruction = new JDTASTConstruction();
     this.patchGenerator = patchGenerator;
   }
