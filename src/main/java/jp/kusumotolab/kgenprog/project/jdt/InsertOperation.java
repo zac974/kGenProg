@@ -13,6 +13,10 @@ public class InsertOperation extends JDTOperation {
   public InsertOperation(final ASTNode astNode) {
     this.astNode = astNode;
   }
+  
+  public ASTNode getNode() {
+    return astNode;
+  }
 
   @Override
   protected <T extends SourcePath> void applyToASTRewrite(final GeneratedJDTAST<T> ast,

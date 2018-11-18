@@ -11,6 +11,10 @@ public class ReplaceOperation extends JDTOperation {
   public ReplaceOperation(final ASTNode astNode) {
     this.astNode = astNode;
   }
+  
+  public ASTNode getNode() {
+    return astNode;
+  }
 
   @Override
   protected <T extends SourcePath> void applyToASTRewrite(final GeneratedJDTAST<T> ast,
