@@ -90,19 +90,20 @@ public class RandomMutationTest {
 
     final Map<String, List<Base>> map = variantList.stream()
         .map(this::getLastBase)
-        .collect(
-            Collectors.groupingBy(e -> ((JDTASTLocation) e.getTargetLocation()).node.toString()));
+        .collect(Collectors.groupingBy(e -> ((JDTASTLocation) e.getTargetLocation()).getNode()
+            .toString()));
 
     final String weakSuspiciousness = ((JDTASTLocation) suspiciousnesses.get(0)
-        .getLocation()).node.toString();
+        .getLocation()).getNode()
+            .toString();
     final String strongSuspiciousness = ((JDTASTLocation) suspiciousnesses.get(1)
-        .getLocation()).node.toString();
+        .getLocation()).getNode()
+            .toString();
 
     final List<Base> weakBases = map.get(weakSuspiciousness);
     final List<Base> strongBases = map.get(strongSuspiciousness);
 
-    assertThat(weakBases.size())
-        .isLessThan(strongBases.size());
+    assertThat(weakBases.size()).isLessThan(strongBases.size());
   }
 
   @Test
@@ -121,7 +122,7 @@ public class RandomMutationTest {
     final Base base = bases.get(0);
 
     final JDTASTLocation targetLocation = (JDTASTLocation) base.getTargetLocation();
-    assertThat(targetLocation.node).isSameSourceCodeAs("return n;");
+    assertThat(targetLocation.getNode()).isSameSourceCodeAs("return n;");
 
     final Operation operation = base.getOperation();
     assertThat(operation).isInstanceOf(InsertOperation.class);
@@ -175,8 +176,8 @@ public class RandomMutationTest {
   private RandomMutation createRandomMutation(final GeneratedSourceCode sourceCode,
       final Random random) {
     final CandidateSelection statementSelection = new RouletteStatementSelection(random);
-    final RandomMutation randomMutation = new RandomMutation(15, random, statementSelection,
-        Type.PROJECT);
+    final RandomMutation randomMutation =
+        new RandomMutation(15, random, statementSelection, Type.PROJECT);
     randomMutation.setCandidates(sourceCode.getProductAsts());
     return randomMutation;
   }

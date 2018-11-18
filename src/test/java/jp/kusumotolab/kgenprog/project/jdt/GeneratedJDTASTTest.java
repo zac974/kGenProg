@@ -65,7 +65,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(locations).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(0)), atIndex(0))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(1)), atIndex(1));
   }
@@ -82,7 +82,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(locations).hasSize(4)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(0)), atIndex(0))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(1)), atIndex(1))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(2)), atIndex(2))
@@ -109,7 +109,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(locations).hasSize(4)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(0)), atIndex(0))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(1)), atIndex(1))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(2)), atIndex(2))
@@ -195,7 +195,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(locations).hasSize(10)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(0)), atIndex(0))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(1)), atIndex(1))
         .satisfies(j -> assertThat(j).isSameSourceCodeAs(expects.get(2)), atIndex(2))
@@ -223,7 +223,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(astLocations.infer(10)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
 
     // 挿入位置のLocation生成
@@ -252,13 +252,13 @@ public class GeneratedJDTASTTest {
 
     assertThat(newAstLocations.infer(10)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("a();"), atIndex(1));
 
     assertThat(newAstLocations.infer(11)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
         .extracting(loc -> (JDTASTLocation) loc)
-        .extracting(loc -> loc.node)
+        .extracting(loc -> loc.getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
   }
 
@@ -277,7 +277,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(astLocations.infer(10)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
 
     // 削除位置のLocation生成
@@ -299,7 +299,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(newAstLocations.infer(4)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
   }
 
@@ -318,7 +318,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(astLocations.infer(10)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
 
     // 置換位置のLocation生成
@@ -357,7 +357,7 @@ public class GeneratedJDTASTTest {
 
     assertThat(newAstLocations.infer(8)).hasSize(2)
         .allMatch(loc -> loc instanceof JDTASTLocation)
-        .extracting(loc -> ((JDTASTLocation) loc).node)
+        .extracting(loc -> ((JDTASTLocation) loc).getNode())
         .satisfies(j -> assertThat(j).isSameSourceCodeAs("return n;"), atIndex(1));
   }
 

@@ -70,7 +70,7 @@ public class TestResultsTest {
     final JDTASTLocation jdtLocation1 = (JDTASTLocation) loc1;
 
     // 一応locationの中身を確認しておく
-    assertThat(jdtLocation1.node).isSameSourceCodeAs("n--;");
+    assertThat(jdtLocation1.getNode()).isSameSourceCodeAs("n--;");
 
     // 4メトリクスの取り出しとassertion
     final long a_ep1 = result.getNumberOfPassedTestsExecutingTheStatement(fooPath, loc1);
@@ -89,7 +89,7 @@ public class TestResultsTest {
     final JDTASTLocation jdtLocation2 = (JDTASTLocation) loc2;
 
     // 一応locationの中身を確認しておく
-    assertThat(jdtLocation2.node).isSameSourceCodeAs("return n;");
+    assertThat(jdtLocation2.getNode()).isSameSourceCodeAs("return n;");
 
     // 4メトリクスの取り出しとassertion
     final long a_ep2 = result.getNumberOfPassedTestsExecutingTheStatement(fooPath, loc2);
