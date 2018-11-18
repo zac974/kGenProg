@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
@@ -111,11 +112,7 @@ public class TestResults implements Serializable {
 
     // 翻訳1: SourcePath → [FQN]
     // 翻訳1: SourcePath → [FQN]
-    final Set<FullyQualifiedName> correspondingFqns = buildResults.getBinaryStore()
-        .get(productSourcePath)
-        .stream()
-        .map(JavaBinaryObject::getFqn)
-        .collect(Collectors.toSet());
+    final Set<FullyQualifiedName> correspondingFqns = sourcePathToFQN.apply(productSourcePath);
 
     // 翻訳2: location → 行番号
     // TODO
@@ -275,9 +272,20 @@ public class TestResults implements Serializable {
 
   // 翻訳用ASTを持つbuildResults
   private BuildResults buildResults;
+  private Function<ProductSourcePath, Set<FullyQualifiedName>> sourcePathToFQN;
 
   public void setBuildResults(final BuildResults buildResults) {
     this.buildResults = buildResults;
+    this.sourcePathToFQN = productSourcePath -> this.buildResults.getBinaryStore()
+        .get(productSourcePath)
+        .stream()
+        .map(JavaBinaryObject::getFqn)
+        .collect(Collectors.toSet());
+  }
+
+  public void setSourcePathToFQN(
+      Function<ProductSourcePath, Set<FullyQualifiedName>> sourcePathToFQN) {
+    this.sourcePathToFQN = sourcePathToFQN;
   }
 
 }
