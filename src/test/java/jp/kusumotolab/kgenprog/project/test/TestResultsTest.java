@@ -50,7 +50,7 @@ public class TestResultsTest {
         new Configuration.Builder(targetProject).setTimeLimitSeconds(TIMEOUT_SEC)
             .build();
     final TestExecutor executor = new LocalTestExecutor(config);
-    final TestResults result = executor.exec(generatedSourceCode);
+    final TestResults result = executor.exec(null, generatedSourceCode);
 
     // TODO
     // buildResultsのセットは本来，TestExcecutorでやるべき．
@@ -118,7 +118,7 @@ public class TestResultsTest {
         new Configuration.Builder(targetProject).setTimeLimitSeconds(TIMEOUT_SEC)
             .build();
     final TestExecutor executor = new LocalTestExecutor(config);
-    final TestResults result = executor.exec(generatedSourceCode);
+    final TestResults result = executor.exec(null, generatedSourceCode);
 
     final String expected = new StringBuilder().append("")
         .append("[")

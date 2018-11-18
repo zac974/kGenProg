@@ -37,7 +37,7 @@ public class TestUtil {
   public static Variant createVariant(final Configuration config) {
     final Gene gene = new Gene(Collections.emptyList());
     final GeneratedSourceCode sourceCode = createGeneratedSourceCode(config.getTargetProject());
-    final TestResults testResults = new LocalTestExecutor(config).exec(sourceCode);
+    final TestResults testResults = new LocalTestExecutor(config).exec(gene, sourceCode);
     final Fitness fitness = new DefaultCodeValidation().exec(null, testResults);
     final List<Suspiciousness> suspiciousnesses = new Ochiai().exec(sourceCode, testResults);
     final HistoricalElement element = new OriginalHistoricalElement();

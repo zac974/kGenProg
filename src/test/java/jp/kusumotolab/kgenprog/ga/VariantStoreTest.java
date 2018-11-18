@@ -37,7 +37,7 @@ public class VariantStoreTest {
     final Strategies strategies = mock(Strategies.class);
     when(strategies.execFaultLocalization(any(), any())).thenReturn(faultLocalizationResult);
     when(strategies.execSourceCodeGeneration(any(), any())).thenReturn(sourceCodeGenerationResult);
-    when(strategies.execTestExecutor(any())).thenReturn(testExecutorResult);
+    when(strategies.execTestExecutor(any(), any())).thenReturn(testExecutorResult);
     when(strategies.execSourceCodeValidation(any(), any())).thenReturn(sourceCodeValidationResult);
     when(strategies.execASTConstruction(any())).thenReturn(astConstructionResult);
     when(strategies.execVariantSelection(any(), any())).thenReturn(Collections.emptyList());

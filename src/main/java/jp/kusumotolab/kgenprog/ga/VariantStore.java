@@ -148,7 +148,7 @@ public class VariantStore {
 
   private Variant createVariant(final Gene gene, final GeneratedSourceCode sourceCode,
       final HistoricalElement element) {
-    final TestResults testResults = strategies.execTestExecutor(sourceCode);
+    final TestResults testResults = strategies.execTestExecutor(gene, sourceCode);
     final Fitness fitness = strategies.execSourceCodeValidation(sourceCode, testResults);
     final List<Suspiciousness> suspiciousnesses =
         strategies.execFaultLocalization(sourceCode, testResults);

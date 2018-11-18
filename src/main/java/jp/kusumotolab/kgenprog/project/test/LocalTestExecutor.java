@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import jp.kusumotolab.kgenprog.Configuration;
+import jp.kusumotolab.kgenprog.ga.Gene;
 import jp.kusumotolab.kgenprog.project.GeneratedSourceCode;
 import jp.kusumotolab.kgenprog.project.build.BuildResults;
 import jp.kusumotolab.kgenprog.project.build.ProjectBuilder;
@@ -20,7 +21,7 @@ public class LocalTestExecutor implements TestExecutor {
   }
 
   @Override
-  public TestResults exec(final GeneratedSourceCode generatedSourceCode) {
+  public TestResults exec(final Gene gene, final GeneratedSourceCode generatedSourceCode) {
     if (!generatedSourceCode.isGenerationSuccess()) {
       return EmptyTestResults.instance;
     }

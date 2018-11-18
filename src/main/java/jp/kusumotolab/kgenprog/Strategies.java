@@ -48,8 +48,9 @@ public class Strategies {
     return sourceCodeGeneration.exec(variantStore, gene);
   }
 
-  public TestResults execTestExecutor(final GeneratedSourceCode generatedSourceCode) {
-    return testExecutor.exec(generatedSourceCode);
+  public TestResults execTestExecutor(final Gene gene,
+      final GeneratedSourceCode generatedSourceCode) {
+    return testExecutor.exec(gene, generatedSourceCode);
   }
 
   public Fitness execSourceCodeValidation(final GeneratedSourceCode sourceCode,
