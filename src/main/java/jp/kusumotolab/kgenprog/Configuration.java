@@ -336,7 +336,7 @@ public class Configuration {
 
       if (targetProject == null) {
         targetProject = TargetProjectFactory.create(rootDir, productPaths, testPaths, classPaths,
-            JUnitVersion.JUNIT4);
+            JUnitVersion.JUNIT4_CUSTOM);
       }
 
       return new Configuration(this);

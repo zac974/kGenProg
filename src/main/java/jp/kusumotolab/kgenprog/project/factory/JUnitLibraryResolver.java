@@ -14,13 +14,15 @@ import jp.kusumotolab.kgenprog.project.ClassPath;
 public class JUnitLibraryResolver {
 
   public enum JUnitVersion {
-    JUNIT3, JUNIT4
+    JUNIT3, JUNIT4, JUNIT4_CUSTOM
   }
 
   private static final String JUNIT3_DIR = "junit3/";
   private static final String JUNIT4_DIR = "junit4/";
+  private static final String JUNIT4_CUSTOM_DIR = "junit4-custom/";
   private static final String JUNIT3_JUNIT = "junit-3.8.2.jar";
   private static final String JUNIT4_JUNIT = "junit-4.12.jar";
+  private static final String JUNIT4_CUSTOM_JUNIT = "junit-4.13-custom.jar";
   private static final String JUNIT4_HAMCREST = "hamcrest-core-1.3.jar";
   private static final String SYSTEM_TEMP_DIR = System.getProperty("java.io.tmpdir");
 
@@ -35,16 +37,20 @@ public class JUnitLibraryResolver {
           classLoader.getResourceAsStream(JUNIT3_DIR + JUNIT3_JUNIT);
       final InputStream junit4JInputStream =
           classLoader.getResourceAsStream(JUNIT4_DIR + JUNIT4_JUNIT);
+      final InputStream junit4CustomJInputStream =
+          classLoader.getResourceAsStream(JUNIT4_CUSTOM_DIR + JUNIT4_CUSTOM_JUNIT);
       final InputStream junit4HInputStream =
           classLoader.getResourceAsStream(JUNIT4_DIR + JUNIT4_HAMCREST);
 
       final Path systemTempPath = Paths.get(SYSTEM_TEMP_DIR);
       final Path junit3JPath = systemTempPath.resolve(JUNIT3_JUNIT);
       final Path junit4JPath = systemTempPath.resolve(JUNIT4_JUNIT);
+      final Path junit4CustomJPath = systemTempPath.resolve(JUNIT4_CUSTOM_JUNIT);
       final Path junit4HPath = systemTempPath.resolve(JUNIT4_HAMCREST);
 
       Files.copy(junit3JInputStream, junit3JPath, StandardCopyOption.REPLACE_EXISTING);
       Files.copy(junit4JInputStream, junit4JPath, StandardCopyOption.REPLACE_EXISTING);
+      Files.copy(junit4CustomJInputStream, junit4CustomJPath, StandardCopyOption.REPLACE_EXISTING);
       Files.copy(junit4HInputStream, junit4HPath, StandardCopyOption.REPLACE_EXISTING);
 
       junit3JPath.toFile()
@@ -57,6 +63,8 @@ public class JUnitLibraryResolver {
       libraries.put(JUnitVersion.JUNIT3, Arrays.asList(new ClassPath(junit3JPath)));
       libraries.put(JUnitVersion.JUNIT4,
           Arrays.asList(new ClassPath(junit4JPath), new ClassPath(junit4HPath)));
+      libraries.put(JUnitVersion.JUNIT4_CUSTOM,
+          Arrays.asList(new ClassPath(junit4CustomJPath), new ClassPath(junit4HPath)));
     } catch (Exception e) {
       e.printStackTrace();
     }

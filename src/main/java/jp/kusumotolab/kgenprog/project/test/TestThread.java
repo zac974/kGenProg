@@ -85,7 +85,10 @@ class TestThread extends Thread {
     final List<FullyQualifiedName> executionTestFQNs = getExecutionTestFQNs();
 
     final List<ClassPath> classPaths = targetProject.getClassPaths();
-    final URL[] classpathUrls = convertClasspathsToURLs(classPaths);
+    // final URL[] classpathUrls = convertClasspathsToURLs(classPaths);
+
+    final URL[] classpathUrls = {}; // カスタムjunit.jarロード時の混乱回避
+
     final MemoryClassLoader classLoader = new MemoryClassLoader(classpathUrls);
 
     try {
@@ -244,6 +247,7 @@ class TestThread extends Thread {
 
     @Override
     public void testFailure(Failure failure) {
+      System.out.println(failure);
       wasFailed = true;
     }
 
