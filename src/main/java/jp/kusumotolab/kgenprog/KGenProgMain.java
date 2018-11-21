@@ -112,6 +112,7 @@ public class KGenProgMain {
 
     stopwatch.unsplit();
     log.info("execution time: " + stopwatch.toString());
+    logTotalVariants();
 
     return variantStore.getFoundSolutions(config.getRequiredSolutionsCount());
   }
@@ -160,6 +161,25 @@ public class KGenProgMain {
         .append("entered the era of ")
         .append(generation.toString())
         .append(" generation.");
+
+    log.info(sb.toString());
+  }
+
+  private long totalVariants = 0;
+  private long syntaxValidVariants = 0;
+  private long buildSucceededVariants = 0;
+
+  private void logTotalVariants() {
+    final StringBuilder sb = new StringBuilder();
+    sb//
+        .append("Total Variants: generated ")
+        .append(totalVariants)
+        .append(", syntax-valid ")
+        .append(syntaxValidVariants)
+        .append(", build-succeeded ")
+        .append(buildSucceededVariants)
+        .append(System.lineSeparator());
+
     log.info(sb.toString());
   }
 
@@ -168,6 +188,11 @@ public class KGenProgMain {
     final List<Variant> variants = new ArrayList<>();
     variants.addAll(variantsByMutation);
     variants.addAll(variantsByCrossover);
+
+    totalVariants += variantsByMutation.size() + variantsByCrossover.size();
+    syntaxValidVariants += count(variants, v -> v.isSyntaxValid());
+    buildSucceededVariants += count(variants, v -> v.isBuildSucceeded());
+
     final StringBuilder sb = new StringBuilder();
     sb//
         .append(System.lineSeparator())
