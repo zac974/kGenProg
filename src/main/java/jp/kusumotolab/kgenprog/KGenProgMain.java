@@ -227,12 +227,18 @@ public class KGenProgMain {
   }
 
   private String getMaxText(final List<Variant> variants) {
+    if (getFrequencies(variants).isEmpty()) {
+      return "--";
+    }
     final Map.Entry<Double, Long> max =
         Collections.max(getFrequencies(variants).entrySet(), Map.Entry.comparingByKey());
     return max.getKey() + "(" + max.getValue() + ")";
   }
 
   private String getMinText(final List<Variant> variants) {
+    if (getFrequencies(variants).isEmpty()) {
+      return "--";
+    }
     final Map.Entry<Double, Long> min =
         Collections.min(getFrequencies(variants).entrySet(), Map.Entry.comparingByKey());
     return min.getKey() + "(" + min.getValue() + ")";
@@ -243,7 +249,8 @@ public class KGenProgMain {
         .filter(v -> v.isBuildSucceeded())
         .mapToDouble(v -> getFitnessValue(v))
         .average()
-        .getAsDouble();
+        .orElse(Double.NaN);
+        //.getAsDouble();
   }
 
   private Map<Double, Long> getFrequencies(final List<Variant> variants) {
