@@ -30,7 +30,6 @@ public class TestExecutor {
         new TestThread(buildResults, config.getTargetProject(), config.getExecutedTests());
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     final Future<?> future = executor.submit(testThread);
-    executor.shutdown();
     try {
       future.get();
     } catch (final ExecutionException e) {
@@ -40,8 +39,12 @@ public class TestExecutor {
     } catch (final InterruptedException e) {
       // TODO Should handle safely
       e.printStackTrace();
+    } finally {
+      executor.shutdown();
+      executor.shutdownNow();
+      testThread.stop();
+      //testThread.destroy();
     }
-
     return testThread.getTestResults();
   }
 }
