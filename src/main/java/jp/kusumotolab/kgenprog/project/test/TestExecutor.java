@@ -28,6 +28,8 @@ public class TestExecutor {
 
     final TestThread testThread =
         new TestThread(buildResults, config.getTargetProject(), config.getExecutedTests());
+    testThread.setDaemon(true);
+
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     final Future<?> future = executor.submit(testThread);
     try {
@@ -43,7 +45,7 @@ public class TestExecutor {
       executor.shutdown();
       executor.shutdownNow();
       testThread.stop();
-      //testThread.destroy();
+      // testThread.destroy();
     }
     return testThread.getTestResults();
   }
