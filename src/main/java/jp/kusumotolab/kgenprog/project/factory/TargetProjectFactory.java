@@ -43,6 +43,7 @@ public class TargetProjectFactory {
    */
   public static TargetProject create(final Path rootPath, final List<Path> pathsForProductSource,
       final List<Path> pathsForTestSource, List<Path> pathsForClass, JUnitVersion junitVersion) {
+    System.out.println(junitVersion);
     return new DefaultProjectFactory(rootPath, pathsForProductSource, pathsForTestSource,
         pathsForClass, junitVersion).create();
   }

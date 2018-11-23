@@ -47,7 +47,7 @@ public class CUILauncher {
         crossover, sourceCodeGeneration, sourceCodeValidation, variantSelection, patchGenerator);
 
     kGenProgMain.run();
-    System.exit(1);
+    //System.exit(1);
   }
 
   // region Private Method
