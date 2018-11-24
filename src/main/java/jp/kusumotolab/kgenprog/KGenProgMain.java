@@ -83,6 +83,8 @@ public class KGenProgMain {
       variantStore.addGeneratedVariants(variantsByMutation);
       variantStore.addGeneratedVariants(variantsByCrossover);
 
+      logGenerationSummary(stopwatch.toString(), variantsByMutation, variantsByCrossover);
+      
       // しきい値以上の completedVariants が生成された場合は，GA を抜ける
       if (areEnoughCompletedVariants(variantStore.getFoundSolutions())) {
         log.info("found enough solutions.");
@@ -104,7 +106,6 @@ public class KGenProgMain {
       // 次世代に向けての準備
       variantStore.proceedNextGeneration();
 
-      logGenerationSummary(stopwatch.toString(), variantsByMutation, variantsByCrossover);
     }
 
     // 生成されたバリアントのパッチ出力
