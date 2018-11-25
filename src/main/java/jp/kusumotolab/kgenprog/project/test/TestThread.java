@@ -21,7 +21,10 @@ import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.common.base.Functions;
+import jp.kusumotolab.kgenprog.KGenProgMain;
 import jp.kusumotolab.kgenprog.project.ClassPath;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
 import jp.kusumotolab.kgenprog.project.SourcePath;
@@ -36,6 +39,8 @@ import jp.kusumotolab.kgenprog.project.factory.TargetProject;
  */
 class TestThread extends Thread {
 
+  private static Logger log = LoggerFactory.getLogger(TestThread.class);
+  
   private final IRuntime jacocoRuntime;
   private final Instrumenter jacocoInstrumenter;
   private final RuntimeData jacocoRuntimeData;
@@ -247,7 +252,7 @@ class TestThread extends Thread {
 
     @Override
     public void testFailure(Failure failure) {
-      System.out.println(failure);
+      log.debug(failure.toString());
       wasFailed = true;
     }
 
