@@ -40,7 +40,7 @@ public class Configuration {
   public static final int DEFAULT_MAX_GENERATION = 10;
   public static final int DEFAULT_MUTATION_GENERATING_COUNT = 10;
   public static final int DEFAULT_CROSSOVER_GENERATING_COUNT = 10;
-  public static final int DEFAULT_HEADCOUNT = 100;
+  public static final int DEFAULT_HEADCOUNT = 10;
   public static final int DEFAULT_REQUIRED_SOLUTIONS_COUNT = 1;
   public static final Duration DEFAULT_TIME_LIMIT = Duration.ofSeconds(60);
   public static final Duration DEFAULT_TEST_TIME_LIMIT = Duration.ofSeconds(10);
@@ -641,7 +641,8 @@ public class Configuration {
       this.randomSeed = randomSeed;
     }
 
-    @Option(name = "--scope", usage = "Specify the scope from which source code to be reused is selected.",
+    @Option(name = "--scope",
+        usage = "Specify the scope from which source code to be reused is selected.",
         depends = {"-r", "-s", "-t"})
     private void setScopeFromCmdLineParser(final Scope.Type scope) {
       this.scope = scope;
