@@ -79,7 +79,7 @@ public class Configuration {
 
   // region Constructor
 
-  private Configuration(final Builder builder) {
+  protected Configuration(final Builder builder) {
     targetProject = builder.targetProject;
     executionTests = builder.executionTests;
     workingDir = builder.workingDir;
@@ -198,28 +198,28 @@ public class Configuration {
     @com.electronwill.nightconfig.core.conversion.Path("root-dir")
     @SpecNotNull
     @Conversion(PathToString.class)
-    private Path rootDir;
+    protected Path rootDir;
 
     @com.electronwill.nightconfig.core.conversion.Path("src")
     @SpecNotNull
     @Conversion(PathsToStrings.class)
-    private List<Path> productPaths;
+    protected List<Path> productPaths;
 
     @com.electronwill.nightconfig.core.conversion.Path("test")
     @SpecNotNull
     @Conversion(PathsToStrings.class)
-    private List<Path> testPaths;
+    protected List<Path> testPaths;
 
     @com.electronwill.nightconfig.core.conversion.Path("cp")
     @PreserveNotNull
     @Conversion(PathsToStrings.class)
-    private List<Path> classPaths = new ArrayList<>();
+    protected List<Path> classPaths = new ArrayList<>();
 
     @com.electronwill.nightconfig.core.conversion.Path("exec-test")
     @PreserveNotNull
-    private final List<String> executionTests = new ArrayList<>();
+    protected final List<String> executionTests = new ArrayList<>();
 
-    private transient TargetProject targetProject;
+    protected transient TargetProject targetProject;
 
     @com.electronwill.nightconfig.core.conversion.Path("working-dir")
     @PreserveNotNull
@@ -300,7 +300,7 @@ public class Configuration {
     /**
      * Do not call me except from {@link #buildFromCmdLineArgs}
      */
-    private Builder() {
+    protected Builder() {
       productPaths = new ArrayList<>();
       testPaths = new ArrayList<>();
     }
@@ -452,7 +452,7 @@ public class Configuration {
 
     // region Private methods
 
-    private static void validateArgument(final Builder builder) throws IllegalArgumentException {
+    protected static void validateArgument(final Builder builder) throws IllegalArgumentException {
       validateExistences(builder);
       validateCurrentDir(builder);
     }
@@ -494,12 +494,12 @@ public class Configuration {
       return builder.logLevel.equals(Level.ERROR);
     }
 
-    private static boolean needsParseConfigFile(final String[] args) {
+    protected static boolean needsParseConfigFile(final String[] args) {
       return args.length == 0 || Arrays.asList(args)
           .contains("--config");
     }
 
-    private void parseConfigFile() throws InvalidValueException, NoSuchFileException {
+    protected void parseConfigFile() throws InvalidValueException, NoSuchFileException {
       if (Files.notExists(configPath)) {
         throw new NoSuchFileException("config file \"" + configPath.toAbsolutePath()
             .toString() + "\" is not found.");
